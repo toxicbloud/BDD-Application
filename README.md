@@ -1,8 +1,6 @@
 # BDD-Application Séance 1
+![*image Diagramme UML*](https://github.com/toxicbloud/BDD-Application/blob/7b9e3ce3cfb30969a02f12be1311931b043ba743/ressources/Gamepedia.png)
 Modélisation de la base de donnée Gamepedia :
-
-
-
 - Jeu(PK_ID_Jeu,nom,descriptionCourte,descriptionLongue,dateSortieInitiale,dateSortieAttendue,FK_ID_Compagnie)
 - Plateforme(PK_ID_Plateforme,nom,alias,descriptioncourte,descriptionLongue,dateSortie,tarifInitial,decompte,FK_ID_Compagnie)
 - Compagnie(PK_ID_Compagnie,nom,alias,abreviation,descriptionCourte,descriptionLongue,adresse,dateCreation,noTelephone,urlSiteWeb)
