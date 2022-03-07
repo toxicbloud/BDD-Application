@@ -1,0 +1,19 @@
+{
+    "name": "app/gamepedia",
+    "authors": [
+        {
+            "name": "toxicbloud",
+            "email": "fanta.r55000@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "gamepedia\\": "src/"
+        }
+      },
+    "require": {
+        "slim/slim": "3.*",
+        "illuminate/database": "5.5.*",
+        "illuminate/pagination": "~5.0"
+    }
+}
