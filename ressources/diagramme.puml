@@ -1,0 +1,69 @@
+@startuml Gamepedia
+class "Jeux-video" as Jeu {
+    nom
+    descriptionCourte
+    descriptionLongue
+    dateSortieInitiale
+    dateSortieAttendue
+}
+
+class Theme{
+    nom
+}
+class Genre{
+    nom
+    descriptionCourte
+    descriptionLongue
+}
+class Plateforme{
+    nom
+    alias
+    descriptionCourte
+    descriptionLongue
+    dateSortie
+    tarifInitial
+    decompte
+}
+class Compagnie{
+    nom
+    alias
+    abreviation
+    descriptionCourte
+    descriptionLongue
+    adresse
+    dateCreation
+    noTelephone
+    urlSiteWeb
+}
+class Classement{
+    nom
+}
+class Organisme{
+    nom
+    descriptionCourte
+    descriptionLongue
+}
+class Personnage{
+    nom
+    alias
+    nomReel
+    nomFamille
+    dateNaissance
+    genre
+    descriptionCourte
+    descriptionLongue
+}
+
+Jeu "*" -- "*" Theme : possede >
+Jeu "*" -- "*" Genre : possede >
+Jeu "*" -- "*" Plateforme : fonctionne >
+Plateforme "*" -- "1" Compagnie : produite >
+Jeu "*" -- "*" Compagnie : developpé >
+Jeu "*" -- "*" Compagnie : publié >
+Jeu " 1" -- "*" Classement : possede >
+Organisme "1" -- "*" Classement :  delivre >
+Jeu "*" -- "*" Personnage : utilise >
+Personnage "*" -- "*" Personnage : est un ami >
+Personnage "*" -- "*" Personnage : est un enemi >
+
+@enduml
