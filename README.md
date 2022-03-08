@@ -1,4 +1,3 @@
-# BDD-Application Séance 1
 ## Préparation séance 2
 1.
 Categorie(PK_ID_Categorie,nom,description)
