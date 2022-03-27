@@ -9,6 +9,10 @@ use gamepedia\models\Character;
 use gamepedia\models\RatingBoard;
 use gamepedia\models\Genre;
 
+
+use Illuminate\Database\Capsule\Manager as DB;
+DB::connection()->enableQueryLog();
+
 $NEW_LINE = '<br>';
 if (PHP_SAPI === 'cli')
     $NEW_LINE = PHP_EOL;
@@ -123,17 +127,27 @@ foreach($companies as $company){
   }
 }
 
-$genre = Genre::all();
-foreach($genre as $genre){
-  echo($genre->name . "<br />");
-}
-// nouveau genre de jeu "Action" jeux 12 56 345
-$genre = new Genre();
-$genre->name = "Action";
-$game = Game::find(12);
-$genre->games()->attach($game);
-$game = Game::find(56);
-$genre->games()->attach($game);
-$game = Game::find(345);
-$genre->games()->attach($game);
-$genre->save();
+foreach( DB::getQueryLog() as $q){
+    echo "-------------- ".$NEW_LINE;
+    echo "query : " . $q['query'] .$NEW_LINE;
+    echo " --- bindings : [ ";
+    foreach ($q['bindings'] as $b ) {
+        echo " ". $b."," ;
+    }
+    echo " ] ---".$NEW_LINE;
+    echo "-------------- ".$NEW_LINE.$NEW_LINE;
+};
+// $genre = Genre::all();
+// foreach($genre as $genre){
+//   echo($genre->name . "<br />");
+// }
+// // nouveau genre de jeu "Action" jeux 12 56 345
+// $genre = new Genre();
+// $genre->name = "Action";
+// $game = Game::find(12);
+// $genre->games()->attach($game);
+// $game = Game::find(56);
+// $genre->games()->attach($game);
+// $game = Game::find(345);
+// $genre->games()->attach($game);
+// $genre->save();
