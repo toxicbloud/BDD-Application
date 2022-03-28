@@ -1,21 +1,20 @@
-## Préparation séance 3
+## Préparation séance 4
 
-1. mesurer le temps d'éxécution d'une séquence d'instruction en PHP
-   ```php
-   $start = microtime(true);
-   //instruction à éxecuter
-   $end = microtime(true);
-   $time = $end - $start;
-   ```
+```bash
+composer require fakerphp/faker
+```
 
-  
-2. 
- L'index est utilie pour accélerer l'éxécution d'une requete SQL lisant des données .
-Un index ralentit l'ajout et la mise a jour de données mais accelère enormement la lecture des données.
+```php
+$faker = Faker\Factory::create();
+// generate data by calling methods
+echo $faker->name();
+// 'Vince Sporer'
+echo $faker->email();
+// 'walter.sophia@hotmail.com'
+echo $faker->text();
+```
 
-# partie 2
-
-1. les logs nous permettent de voir la requete SQL produit par le query builder
-2. les requetes N+1 nécessite une requete par enfant d'un enregistrement , le eager loading charge les données de la table enfant lorsqu'on accède à une donnée de la table parent ce qui ralentit notre application mais reduit enormement le nombre de requetes SQL.
-
-On doit donc l'utiliser quand c'est utile.
+```php
+$date = DateTime::createFromFormat('Y/m/d (G:i)', '2017/02/16 (16:15)');
+echo $date->format('Y-m-d H:i:s');
+```
