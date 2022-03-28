@@ -17,5 +17,10 @@ requête sans utiliser les tableau $_GET et $_POST :
    ```
 3. en utilisant slim, comment positionner :
    1. le code de retour de la réponse (200, 404, 401 ...),
+    ```php
     $newResponse = $response->withStatus(302);
+    ```
    2. un header dans la réponse
+   ```php
+   $newResponse = $oldResponse->withHeader('Content-type', 'application/json');
+   ```
