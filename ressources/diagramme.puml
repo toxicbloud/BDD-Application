@@ -53,7 +53,21 @@ class Personnage{
     descriptionCourte
     descriptionLongue
 }
-
+class Utilisateur{
+    nom
+    prenom
+    email
+    adresse
+    numero
+    dateNaissance
+}
+class Commentaire{
+    titre
+    contenu
+    dateCreation
+}
+Commentaire "*"--  "1" Jeu : concerne >
+Utilisateur "1" -- "*" Commentaire : écrit >
 Jeu "*" -- "*" Theme : possede >
 Jeu "*" -- "*" Genre : possede >
 Jeu "*" -- "*" Plateforme : fonctionne >

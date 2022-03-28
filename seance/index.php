@@ -8,14 +8,16 @@ use gamepedia\models\Platform;
 use gamepedia\models\Character;
 use gamepedia\models\RatingBoard;
 use gamepedia\models\Genre;
-
+use gamepedia\models\Comment;
+use gamepedia\models\User;
 
 use Illuminate\Database\Capsule\Manager as DB;
+
 DB::connection()->enableQueryLog();
 
 $NEW_LINE = '<br>';
 if (PHP_SAPI === 'cli')
-    $NEW_LINE = PHP_EOL;
+  $NEW_LINE = PHP_EOL;
 /*
 $jeux = Game::where('name', 'like', '%Mario%')->get();
 echo "Jeux avec 'Mario' dans leur nom:".$NEW_LINE;
@@ -198,27 +200,67 @@ foreach( DB::getQueryLog() as $q){
 // $liste=Character::where('name', 'like', 'Mario%')->get();
 // $time=microtime(true)-$start;
 // echo "duree requete LIKE : ".$time.$NEW_LINE;
+/*
+$comments = Comment::all();
+$user = new User();
+$user->nom = "Doe";
+$user->prenom = "John";
+$user->email = "letrucen@chouette.fr";
+$user->numero = "0612345678";
+$user->dateNaissance = new DateTime("1990-01-01");
+$user->save();
 
+$user2 = new User();
+$user2->nom = "Smith";
+$user2->prenom = "John";
+$user2->email = "uneemailen@truc.fr";
+$user2->numero = "0612569527";
+$user2->dateNaissance = new DateTime("1990-08-02");
+$user2->save();
 
-$companies = Company::where('name', 'like', '%Sony%')->get();
-foreach ($companies as $company) {
-    echo "Titre Company :  ".$company->name . $NEW_LINE;
-    $games = $company->games;
-    foreach ($games as $game) {
-        echo "  ".$game->name . $NEW_LINE;
-    }
+$users = User::all();
+foreach ($users as $user) {
+  echo ($user->nom . " " . $user->prenom . " " . $user->email . " " . $user->numero . " " . $user->dateNaissance . $NEW_LINE);
 }
 
-$count = 0;
-foreach( DB::getQueryLog() as $q){
-  echo "-------------- ".$NEW_LINE;
-  echo "query : " . $q['query'] .$NEW_LINE;
-  echo " --- bindings : [ ";
-  foreach ($q['bindings'] as $b ) {
-      echo " ". $b."," ;
-  }
-  echo " ] ---".$NEW_LINE;
-  echo "-------------- ".$NEW_LINE.$NEW_LINE;
-  $count++;
-};
-echo "nb requetes : ".$count.$NEW_LINE;
+$game = Game::find(12342);
+
+$comment1 = new Comment();
+$comment1->content = "Ce jeu est trop bien";
+$comment1->titre = "Jeu super";
+$comment1->game()->associate($game);
+$comment1->user()->associate($user);
+$comment1->save();
+
+for ($i = 1; $i <= 3; $i++) {
+  $comment = new Comment();
+  $comment->content = "Ce jeu est trop bien";
+  $comment->titre = "avis ".$i;
+  $comment->game()->associate($game);
+  $comment->user()->associate($user);
+  $comment->save();
+}
+
+for ($i = 1; $i <= 3; $i++) {
+  $comment = new Comment();
+  $comment->content = "Ce jeu est trop bien";
+  $comment->titre = "avis ".$i;
+  $comment->game()->associate($game);
+  $comment->user()->associate($user2);
+  $comment->save();
+} */
+
+//lister les commentaires d'un utilisateur donné, afficher la date du commentaire de façon lisible, ordonnés par date décroissante,
+
+$comments = User::find(8708)->comments()->orderBy('created_at', 'desc')->get();
+foreach ($comments as $comment) {
+  echo("\t Titre :".$comment->titre . $NEW_LINE . "\tContenu : ".$comment->content . $NEW_LINE ."Cree le : ". $comment->created_at . $NEW_LINE);
+}
+//lister les utilisateurs ayant posté plus de 5 commentaires.
+
+
+//list les utilisateurs ayant posté plus de 5 commentaires, afficher le nom et le prénom de chaque utilisateur.
+$users = User::has('comments', '>', 5)->get();
+foreach ($users as $user) {
+  echo ($user->nom . " " . $user->prenom . $NEW_LINE);
+}
