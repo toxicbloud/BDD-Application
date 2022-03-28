@@ -155,29 +155,70 @@ foreach( DB::getQueryLog() as $q){
 */
 
 
-$start=microtime(true);
+// $start=microtime(true);
 
-$liste = Game::all();
-$time=microtime(true)-$start;
-echo "duree requete 1 : ".$time.$NEW_LINE;
+// $liste = Game::all();
+// $time=microtime(true)-$start;
+// echo "duree requete 1 : ".$time.$NEW_LINE;
 
-$start=microtime(true);
-$liste=Game::where('name', 'like', '%Mario%')->get();
-$time=microtime(true)-$start;
+// $start=microtime(true);
+// $liste=Game::where('name', 'like', 'Mario%')->get();
+// $time=microtime(true)-$start;
 
-echo "duree requete 2 : ".$time.$NEW_LINE;
+// echo "duree requete 2 : ".$time.$NEW_LINE;
 
-$start=microtime(true);
-$liste=Character::where('name', 'like', '%Mario%')->get();
-$time=microtime(true)-$start;
+// $start=microtime(true);
+// $liste=Character::where('name', 'like', 'Mario%')->get();
+// $time=microtime(true)-$start;
 
-echo "duree requete 3 : ".$time.$NEW_LINE;
+// echo "duree requete 3 : ".$time.$NEW_LINE;
 
-$start=microtime(true);
-$liste=\gamepedia\models\Game::where('name', 'like', '%Mario%')
-    ->whereHas('ratings', function($q){
-       $q->where('name', 'like', '%3+%');
-    })
-    ->get();
-$time=microtime(true)-$start;
-echo "duree requete 4 : ".$time.$NEW_LINE;
+// $start=microtime(true);
+// $liste=\gamepedia\models\Game::where('name', 'like', 'Mario%')
+//     ->whereHas('ratings', function($q){
+//        $q->where('name', 'like', '%3+%');
+//     })
+//     ->get();
+// $time=microtime(true)-$start;
+// echo "duree requete 4 : ".$time.$NEW_LINE;
+
+
+
+// $start=microtime(true);
+// $liste=Character::where('name', 'like', 'Snake%')->get();
+// $time=microtime(true)-$start;
+// echo "duree requete LIKE : ".$time.$NEW_LINE;
+
+// $start=microtime(true);
+// $liste=Character::where('name', 'like', 'Sonic%')->get();
+// $time=microtime(true)-$start;
+// echo "duree requete LIKE : ".$time.$NEW_LINE;
+
+// $start=microtime(true);
+// $liste=Character::where('name', 'like', 'Mario%')->get();
+// $time=microtime(true)-$start;
+// echo "duree requete LIKE : ".$time.$NEW_LINE;
+
+
+$companies = Company::where('name', 'like', '%Sony%')->get();
+foreach ($companies as $company) {
+    echo "Titre Company :  ".$company->name . $NEW_LINE;
+    $games = $company->games;
+    foreach ($games as $game) {
+        echo "  ".$game->name . $NEW_LINE;
+    }
+}
+
+$count = 0;
+foreach( DB::getQueryLog() as $q){
+  echo "-------------- ".$NEW_LINE;
+  echo "query : " . $q['query'] .$NEW_LINE;
+  echo " --- bindings : [ ";
+  foreach ($q['bindings'] as $b ) {
+      echo " ". $b."," ;
+  }
+  echo " ] ---".$NEW_LINE;
+  echo "-------------- ".$NEW_LINE.$NEW_LINE;
+  $count++;
+};
+echo "nb requetes : ".$count.$NEW_LINE;
