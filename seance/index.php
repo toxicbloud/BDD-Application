@@ -16,7 +16,7 @@ DB::connection()->enableQueryLog();
 $NEW_LINE = '<br>';
 if (PHP_SAPI === 'cli')
     $NEW_LINE = PHP_EOL;
-
+/*
 $jeux = Game::where('name', 'like', '%Mario%')->get();
 echo "Jeux avec 'Mario' dans leur nom:".$NEW_LINE;
 foreach ($jeux as $jeu) {
@@ -151,3 +151,33 @@ foreach( DB::getQueryLog() as $q){
 // $game = Game::find(345);
 // $genre->games()->attach($game);
 // $genre->save();
+
+*/
+
+
+$start=microtime(true);
+
+$liste = Game::all();
+$time=microtime(true)-$start;
+echo "duree requete 1 : ".$time.$NEW_LINE;
+
+$start=microtime(true);
+$liste=Game::where('name', 'like', '%Mario%')->get();
+$time=microtime(true)-$start;
+
+echo "duree requete 2 : ".$time.$NEW_LINE;
+
+$start=microtime(true);
+$liste=Character::where('name', 'like', '%Mario%')->get();
+$time=microtime(true)-$start;
+
+echo "duree requete 3 : ".$time.$NEW_LINE;
+
+$start=microtime(true);
+$liste=\gamepedia\models\Game::where('name', 'like', '%Mario%')
+    ->whereHas('ratings', function($q){
+       $q->where('name', 'like', '%3+%');
+    })
+    ->get();
+$time=microtime(true)-$start;
+echo "duree requete 4 : ".$time.$NEW_LINE;
