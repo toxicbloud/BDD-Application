@@ -200,8 +200,7 @@ foreach( DB::getQueryLog() as $q){
 // $liste=Character::where('name', 'like', 'Mario%')->get();
 // $time=microtime(true)-$start;
 // echo "duree requete LIKE : ".$time.$NEW_LINE;
-/*
-$comments = Comment::all();
+
 $user = new User();
 $user->nom = "Doe";
 $user->prenom = "John";
@@ -248,7 +247,7 @@ for ($i = 1; $i <= 3; $i++) {
   $comment->game()->associate($game);
   $comment->user()->associate($user2);
   $comment->save();
-} */
+}
 
 //lister les commentaires d'un utilisateur donné, afficher la date du commentaire de façon lisible, ordonnés par date décroissante,
 
@@ -256,8 +255,6 @@ $comments = User::find(8708)->comments()->orderBy('created_at', 'desc')->get();
 foreach ($comments as $comment) {
   echo("\t Titre :".$comment->titre . $NEW_LINE . "\tContenu : ".$comment->content . $NEW_LINE ."Cree le : ". $comment->created_at . $NEW_LINE);
 }
-//lister les utilisateurs ayant posté plus de 5 commentaires.
-
 
 //list les utilisateurs ayant posté plus de 5 commentaires, afficher le nom et le prénom de chaque utilisateur.
 $users = User::has('comments', '>', 5)->get();
