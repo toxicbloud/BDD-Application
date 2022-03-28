@@ -16,5 +16,6 @@ Un index ralentit l'ajout et la mise a jour de données mais accelère enormemen
 # partie 2
 
 1. les logs nous permettent de voir la requete SQL produit par le query builder
-2. les requetes N+1 nécessite  de faire des jointures entre les tables
-   et le edge loading charge les données de la table enfant lorsqu'on accède à une donnée de la table parent ce qui ralentit notre application
+2. les requetes N+1 nécessite une requete par enfant d'un enregistrement , le eager loading charge les données de la table enfant lorsqu'on accède à une donnée de la table parent ce qui ralentit notre application mais reduit enormement le nombre de requetes SQL.
+
+On doit donc l'utiliser quand c'est utile.
