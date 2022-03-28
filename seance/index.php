@@ -10,6 +10,7 @@ use gamepedia\models\RatingBoard;
 use gamepedia\models\Genre;
 use gamepedia\models\Comment;
 use gamepedia\models\User;
+use gamepedia\controllers\GameController;
 
 use Illuminate\Database\Capsule\Manager as DB;
 
@@ -201,6 +202,7 @@ foreach( DB::getQueryLog() as $q){
 // $time=microtime(true)-$start;
 // echo "duree requete LIKE : ".$time.$NEW_LINE;
 
+/*
 $user = new User();
 $user->nom = "Doe";
 $user->prenom = "John";
@@ -261,3 +263,21 @@ $users = User::has('comments', '>', 5)->get();
 foreach ($users as $user) {
   echo ($user->nom . " " . $user->prenom . $NEW_LINE);
 }
+*/
+$configuration = [
+  'settings' => [
+  'displayErrorDetails' => true,]
+];
+$c = new \Slim\Container($configuration);
+$app = new \Slim\App($c);
+
+$app->get(
+  '/api/games/{id}',
+  function ($rq, $rs, $args) {
+    return GameController::representation($rq, $rs, $args);
+  }
+);
+
+$app->get('/api/games', function ($rq, $rs, $args) {
+  return GameController::lister($rq, $rs, $args);
+});
