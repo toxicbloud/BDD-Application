@@ -1,20 +1,21 @@
-## Préparation séance 4
+## Préparation séance 5-6
 
-```bash
-composer require fakerphp/faker
-```
-
-```php
-$faker = Faker\Factory::create();
-// generate data by calling methods
-echo $faker->name();
-// 'Vince Sporer'
-echo $faker->email();
-// 'walter.sophia@hotmail.com'
-echo $faker->text();
-```
-
-```php
-$date = DateTime::createFromFormat('Y/m/d (G:i)', '2017/02/16 (16:15)');
-echo $date->format('Y-m-d H:i:s');
-```
+1. Lorsque la fonction json_encode() reçoit un tableau PHP, expliquez dans quels cas elle
+retourne une chaine correspondant
+   - à un tableau json : '[ .... ]'
+   - à un objet json : '{ ..... }'
+  Json encode retourne un objet json quand on encode un objet et un tableau quand on encode un array.
+2. en utilisant le micro-framework slim, comment accède-t-on aux données transmises dans la
+requête sans utiliser les tableau $_GET et $_POST :
+   ```php
+   $app->get('/route', function ($request, $response, $args) {
+    $paramValue = $request->params(''); // equal to $_REQUEST
+    $paramValue = $request->post(''); // equal to $_POST
+    $paramValue = $request->get(''); // equal to $_GET
+    return $response;
+    });
+   ```
+3. en utilisant slim, comment positionner :
+   1. le code de retour de la réponse (200, 404, 401 ...),
+    $newResponse = $response->withStatus(302);
+   2. un header dans la réponse
