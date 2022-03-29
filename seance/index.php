@@ -1,6 +1,7 @@
 <?php
 require_once('vendor/autoload.php');
 require_once('conf/db.php');
+ini_set('memory_limit', '-1');
 
 use gamepedia\models\Game;
 use gamepedia\models\Company;
@@ -280,4 +281,16 @@ $app->get(
 
 $app->get('/api/games', function ($rq, $rs, $args) {
   return GameController::lister($rq, $rs, $args);
-});
+})->setName('games');
+
+$app->get('/api/games/{id}/comments', function ($rq, $rs, $args) {
+  return GameController::listerComments($rq, $rs, $args);
+})->setName('comments');
+$app->get('/api/games/{id}/characters', function ($rq, $rs, $args) {
+  return GameController::listerCharacters($rq, $rs, $args);
+})->setName('characters');
+$app->post('/api/games/{id}/comments', function ($rq, $rs, $args) {
+  return GameController::ajouterComment($rq, $rs, $args);
+})->setName('addComment');
+
+$app->run();

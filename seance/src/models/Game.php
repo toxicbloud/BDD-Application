@@ -31,4 +31,12 @@ class Game extends \Illuminate\Database\Eloquent\Model
             'rating_id'
         );
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'id_Game', 'id');
+    }
+    public function platforms()
+    {
+        return $this->belongsToMany(Platform::class, 'game2platform', 'game_id', 'platform_id');
+    }
 }
